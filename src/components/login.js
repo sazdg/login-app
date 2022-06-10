@@ -17,21 +17,35 @@ class Login extends Component{
     }
 
     //form submit handler method
+    // tryLogin(event){
+    //     event.preventDefault();
+    //     console.log(this.state);
+    //     axios({
+    //         method: 'post',
+    //         url: 'http://localhost:3000/api-server/api/index.php',
+    //         headers: {'content-type':'application/json'},
+    //         data: this.state
+    //     })
+    //     .then(result => {
+    //         this.setState({
+    //             sent: result.data.sent
+    //         })
+    //     })
+    //     .catch(error => this.setState({ error: error.message}));
+    // }
+
     tryLogin(event){
         event.preventDefault();
         console.log(this.state);
-        axios({
-            method: 'post',
-            url: 'http://localhost:3000/api-server/api/index.php',
-            headers: {'content-type':'application/json'},
-            data: this.state
+        
+        axios.get('http://localhost:3000/api/index.php')
+        .then((res) => {
+            console.log(res.data)
         })
-        .then(result => {
-            this.setState({
-                sent: result.data.sent
-            })
-        })
-        .catch(error => this.setState({ error: error.message}));
+        .catch((error) => {
+            console.log(error)
+        });
+        
     }
 
     //how to send data from react to php api
