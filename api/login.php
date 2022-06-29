@@ -1,14 +1,21 @@
 <?php
-require './config.php';
 //stabilisco i permessi di lettura del file (anyone)
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: *");
-// definisco il formato della risposta (json)
-header("Content-Type: application/json; charset=UTF-8");
 // definisco il metodo consentito per la request
 header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-echo "ciao";
+require("config.php");
+
+$query = "SELECT * FROM users WHERE username = 'sara'";
+$result = mysqli_query($db,$query);
+
+    if(mysqli_num_rows($result) == 1){
+        $row = mysqli_fetch_assoc($result);
+        echo json_encode(["login" => true, "message" => "trovato risultato in db con nome:..." . $row["username"]]);
+    } else {
+        echo json_encode(["login" => false, "message" => "credenziali sbagliate"]);
+    }
+
 $postdata = file_get_contents("php://input");
 if(isset($postdata) && !empty($postdata)){
     $request = json_decode($postdata, true);
@@ -17,16 +24,21 @@ if(isset($postdata) && !empty($postdata)){
   
 
     if(empty($username) && empty($password)) die();
+//SELECT * FROM `users` WHERE `username` = 'sara'
+//"INSERT INTO users (name,email,phone,password) VALUES ('$name','$email','$phone','$password')";
+    $query = "SELECT * FROM users WHERE username = 'sara'";
 
-        $query = "SELECT username, password FROM users WHERE username = " . $username;
-        if(mysqli_query($db,$sql)){
-            http_response_code(200);
-            echo json_encode(["login" => true, "message" => "ricevuti! " . $username]);
-        } else {
-            echo json_encode(["login" => false, "message" => "non andato a buon fine"]);
-        }
+    if(mysqli_query($db,$query)){
+        echo json_encode(["login" => true, "message" => "trovato risultato in db con nome: " . $username]);
+    } else {
+        echo json_encode(["login" => false, "message" => "credenziali sbagliate"]);
+    }
+
+} else {
+    echo json_encode("non sono arrivati i dati che hai inviato");
+}
 
 
 
 ?>
-}
+

@@ -34,19 +34,22 @@ class Login extends Component{
  // }
 
  trylogin(event){
+    console.log("click trylogin")
     event.preventDefault()
 
-
-    const userData = this.state
-
-
-     axios.post("http://localhost/login-app/api/login.php", userData)
+    const prova = {
+        username: "mario",
+        password: "mario"
+    }
+     axios.post("http://localhost/login-app/api/login.php", prova)
      .then((response) => {
-        console.log(response.status)
+        
+        document.getElementById("text").innerHTML = response.data
         console.log(response.data)
+        console.log(response.data.login)
      })
      .catch(error => {
-        alert(error.response)
+        alert(error.message)
      })
 
      this.setState({
@@ -101,7 +104,7 @@ class Login extends Component{
                     required />
                     <br />
                     <input type="submit" id="send" value="Send it!!"
-                    onClick={this.trylogin} />
+                    onClick={(e) => this.trylogin(e)} />
                 </form>
 
             </div>

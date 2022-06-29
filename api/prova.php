@@ -1,11 +1,8 @@
 <?php
-
-# http://localhost/login-app/build/api/prova.php
-
+//http://localhost/login-app/build/api/prova.php
 //stabilisco i permessi di lettura del file (anyone)
 header("Access-Control-Allow-Origin: *");
-// definisco il formato della risposta (json)
-header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: *");
 // definisco il metodo consentito per la request
 header("Access-Control-Allow-Headers: *");
 

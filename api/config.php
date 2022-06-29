@@ -1,13 +1,17 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Headers: *");
+
 $server="localhost";
 $username="root";
-$password="";
+$password="root";
 $database="login-app";
 
 $db = mysqli_connect($server,$username,$password,$database);
 
-if($db->connect_error){
-    die("Connection failed " . $db->connect_error);
-}
-echo "Connected successfully";
+if($conn->connect_error){
+    die("Errore nella connessione: ".mysqli_connect_error());
+} 
+
 ?>
