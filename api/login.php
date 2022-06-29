@@ -6,15 +6,7 @@ header("Access-Control-Allow-Methods: *");
 header("Access-Control-Allow-Headers: *");
 require("config.php");
 
-$query = "SELECT * FROM users WHERE username = 'sara'";
-$result = mysqli_query($db,$query);
 
-    if(mysqli_num_rows($result) == 1){
-        $row = mysqli_fetch_assoc($result);
-        echo json_encode(["login" => true, "message" => "trovato risultato in db con nome:..." . $row["username"]]);
-    } else {
-        echo json_encode(["login" => false, "message" => "credenziali sbagliate"]);
-    }
 
 $postdata = file_get_contents("php://input");
 if(isset($postdata) && !empty($postdata)){
@@ -24,18 +16,19 @@ if(isset($postdata) && !empty($postdata)){
   
 
     if(empty($username) && empty($password)) die();
-//SELECT * FROM `users` WHERE `username` = 'sara'
-//"INSERT INTO users (name,email,phone,password) VALUES ('$name','$email','$phone','$password')";
-    $query = "SELECT * FROM users WHERE username = 'sara'";
 
-    if(mysqli_query($db,$query)){
-        echo json_encode(["login" => true, "message" => "trovato risultato in db con nome: " . $username]);
+    $query = "SELECT * FROM users WHERE username = '$username'";
+    $result = mysqli_query($db,$query);
+
+    if(mysqli_num_rows($result) == 1){
+        $row = mysqli_fetch_assoc($result);
+        echo json_encode(["login" => true, "message" => "Trovato risultato in db con nome " . $row["username"]]);
     } else {
-        echo json_encode(["login" => false, "message" => "credenziali sbagliate"]);
+        echo json_encode(["login" => false, "message" => "Credenziali sbagliate"]);
     }
 
 } else {
-    echo json_encode("non sono arrivati i dati che hai inviato");
+    echo json_encode("Non sono arrivati i dati che hai inviato");
 }
 
 
