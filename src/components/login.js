@@ -2,7 +2,6 @@ import { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-
 class Login extends Component{
 
     //the state of the login form
@@ -17,49 +16,64 @@ class Login extends Component{
     }
 
     //form submit handler method
-    // tryLogin(event){
-    //     event.preventDefault();
-    //     console.log(this.state);
-    //     axios({
-    //         method: 'post',
-    //         url: 'http://localhost:3000/api-server/api/index.php',
-    //         headers: {'content-type':'application/json'},
-    //         data: this.state
-    //     })
-    //     .then(result => {
-    //         this.setState({
-    //             sent: result.data.sent
-    //         })
-    //     })
-    //     .catch(error => this.setState({ error: error.message}));
-    // }
+ //  tryLogin(event){
+ //      event.preventDefault()
+ //      console.log(this.state)
+ //      axios({
+ //          method: 'post',
+ //          url: 'http://localhost/login-app/build/api/login.php',
+ //          headers: {'content-type':'application/json'},
+ //          data: this.state
+ //      })
+ //      .then(result => {
+ //          this.setState({
+ //              sent: result.data.sent
+ //          })
+ //      })
+ //     .catch(error => this.setState({ error: error.message}))
+ // }
 
-    tryLogin(event){
-        event.preventDefault();
-        console.log(this.state);
-        
-        axios.get('http://localhost:3000/api/index.php')
-        .then((res) => {
-            console.log(res.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        });
-        
-    }
+ trylogin(event){
+    event.preventDefault()
+    const userData = this.state
+     axios.post("http://localhost/login-app/build/api/login.php", userData)
+     .then((response) => {
+        console.log(response.status)
+        console.log(response.data)
+     })
+   
+ }
+
+ //FUNGE
+ //  tryLogin(event){
+ //      event.preventDefault();
+ //      console.log(this.state);
+ //      
+ //      axios.get('http://localhost/login-app/build/api/prova.php')
+ //      .then((res) => {
+ //   
+ //          console.log("SUCCESS")
+ //          document.getElementById("text").innerHTML = res.data.benvenuto
+ //     
+ //          console.log(res.data)
+ //      })
+ //      .catch((error) => {
+ //          console.log(error)
+ //      });
+ //      
+ //  }
 
     //how to send data from react to php api
     //install axios using npm, it works well with http requests
     
 
     render() {
-        //const for api path
-        //const PATH = "http://localhost/api-server/api/index.php";
+      
         return(
             
             <div>
                 <form action="#">
-                    <label>Username</label><br />
+                    <label id="text">Username</label><br />
                     <input type="text" id="username" name="username" 
                     value={this.state.username}
                     onChange={(e) => this.setState({username: e.target.value})}
@@ -72,7 +86,7 @@ class Login extends Component{
                     required />
                     <br />
                     <input type="submit" id="send" value="Send it!!"
-                    onClick={e => this.tryLogin(e)} />
+                    onClick={(e) => this.tryLogin(e)} />
                 </form>
 
             </div>
