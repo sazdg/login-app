@@ -35,11 +35,25 @@ class Login extends Component{
 
  trylogin(event){
     event.preventDefault()
+
+
     const userData = this.state
-     axios.post("http://localhost/login-app/build/api/login.php", userData)
+
+
+     axios.post("http://localhost/login-app/api/login.php", userData)
      .then((response) => {
         console.log(response.status)
         console.log(response.data)
+     })
+     .catch(error => {
+        alert(error.response)
+     })
+
+     this.setState({
+        username: '',
+        password:'',
+        sent:'',
+        error:''
      })
    
  }
@@ -49,7 +63,7 @@ class Login extends Component{
  //      event.preventDefault();
  //      console.log(this.state);
  //      
- //      axios.get('http://localhost/login-app/build/api/prova.php')
+ //      axios.get('http://localhost/login-app/api/prova.php')
  //      .then((res) => {
  //   
  //          console.log("SUCCESS")
@@ -67,6 +81,7 @@ class Login extends Component{
     //install axios using npm, it works well with http requests
     
 
+    //(e) => this.tryLogin(e)
     render() {
       
         return(
@@ -86,7 +101,7 @@ class Login extends Component{
                     required />
                     <br />
                     <input type="submit" id="send" value="Send it!!"
-                    onClick={(e) => this.tryLogin(e)} />
+                    onClick={this.trylogin} />
                 </form>
 
             </div>
